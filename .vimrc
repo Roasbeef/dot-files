@@ -1,3 +1,4 @@
+let mapleader = ","
 " Configuration file for vim
 set modelines=0		" CVE-2007-2438
 
@@ -15,7 +16,9 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-colorscheme tomorrow-night-eighties
+"colorscheme tomorrow-night-eighties
+set background=dark
+colorscheme solarized
 
 set nobackup
 set nowritebackup
@@ -69,3 +72,52 @@ noremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 " numbers stuff
 noremap <F3> :NumbersToggle<CR>
+
+set laststatus=2
+
+" Vundle Stuffs
+set nocompatible               " be iMproved
+filetype off                   " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+Bundle 'scrooloose/syntastic'
+Bundle 'uggedal/go-vim'
+Bundle 'Blackrush/vim-gocode'
+
+filetype plugin indent on     " required!
+
+" Go! Stuffs
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+filetype plugin indent on
+syntax on
+
+" Auto Compile
+autocmd FileType go compiler go
+" Auto complete all day
+set omnifunc=syntaxcomplete#Complete
+syntax on
+
+"Window movement
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
+
+imap jk <Esc>
+" Bind omni complete to shift-tab
+imap <C-o> <C-x><C-o>
+
+" Stuff for syntastic
+" :help syntastic-checker-options for help with options
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list=1
+"let g:syntastic_auto_jump=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height=5

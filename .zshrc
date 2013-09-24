@@ -7,9 +7,9 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="vim ~/.zshrc"
+alias vimconfig="cd /usr/share/vim"
+alias ohmyzsh="cd ~/.oh-my-zsh"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -45,13 +45,23 @@ plugins=(git git-flow python)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/olaoluwaosuntokun/Library/Python/2.7/bin
+export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/olaoluwaosuntokun/Library/Python/2.7/bin
 
 source /usr/local/bin/virtualenvwrapper.sh
 
-export PYTHONPATH=/Library/Python/2.7/site-packages:/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:/Users/olaoluwaosuntokun/Cielo24/Main:$PYTHONPATH
+export PYTHONPATH=/Library/Python/2.7/site-packages:/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:$PYTHONPATH
 
 export TERM="xterm-256color"
 
 # powerline
 #source /usr/share/vim/vim73/bundle/powerline/bindings/zsh/powerline.zsh
+
+# GoFmt options
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/gocode:/Users/olaoluwaosuntokun/Downloads/google_appengine/goroot
+export PATH=$PATH:$GOPATH/bin
+# for Go on AppEngine
+export PATH=$PATH:/Users/olaoluwaosuntokun/Downloads/google_appengine
+
+# Pebble stuff
+export PATH=~/pebble-dev/arm-cs-tools/bin:$PATH
