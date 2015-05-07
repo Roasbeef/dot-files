@@ -86,7 +86,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/syntastic'
-Bundle 'uggedal/go-vim'
+Bundle 'fatih/vim-go'
 Bundle 'Blackrush/vim-gocode'
 
 filetype plugin indent on     " required!
@@ -121,3 +121,9 @@ let g:syntastic_always_populate_loc_list=1
 "let g:syntastic_auto_jump=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
+
+set rnu
+
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
