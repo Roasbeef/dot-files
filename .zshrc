@@ -5,10 +5,10 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="avit"
 
 alias zshconfig="vim ~/.zshrc"
-alias vimconfig="cd /usr/share/vim"
+alias vimconfig="cd /usr/local/Cellar/vim/8.0.0134_2/share/vim"
 alias ohmyzsh="cd ~/.oh-my-zsh"
 
 # Set to this to use case-sensitive completion
@@ -40,14 +40,14 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow python)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/olaoluwaosuntokun/Library/Python/2.7/bin
 
-source /usr/local/bin/virtualenvwrapper.sh
+#source /usr/local/bin/virtualenvwrapper.sh
 
 export PYTHONPATH=/Library/Python/2.7/site-packages:/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:$PYTHONPATH
 
@@ -58,10 +58,26 @@ export TERM="xterm-256color"
 
 # GoFmt options
 export GOROOT=/usr/local/go
-export GOPATH=$HOME/gocode:/Users/olaoluwaosuntokun/Downloads/google_appengine/goroot
-export PATH=$PATH:$GOPATH/bin
+export GOPATH=$HOME/gocode
+export PATH=$PATH:$GOPATH/bin/
+export PATH=$PATH:$GOROOT/bin
 # for Go on AppEngine
 export PATH=$PATH:/Users/olaoluwaosuntokun/Downloads/google_appengine
 
-# Pebble stuff
-export PATH=~/pebble-dev/arm-cs-tools/bin:$PATH
+export PATH=$PATH:/usr/local/lib:/usr/local/include
+
+export PATH=$PATH:/opt/local/bin
+
+# Boot2docker
+# eval "$(boot2docker shellinit)"
+# eval "$(docker-machine env default)"
+
+export GPGKEY=AA748703
+
+export VISUAL=/usr/local/bin/vim
+
+# The next line updates PATH for the Google Cloud SDK.
+# source '/Users/olaoluwaosuntokun/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+# source '/Users/olaoluwaosuntokun/google-cloud-sdk/completion.zsh.inc'
