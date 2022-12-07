@@ -1,5 +1,4 @@
-let mapleader = ","
-" Configuration file for vim
+let mapleader = "," " Configuration file for vim
 set modelines=0		" CVE-2007-2438
 
 " Normally we use vim-extensions. If you want true vi-compatibility
@@ -12,7 +11,6 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
 
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
@@ -40,6 +38,8 @@ set t_ut=
 noremap <leader>y "*y
 noremap <leader>yy "*Y
 
+noremap <leader>8 :set rnu <enter>
+
 " Preserve indentation while pasting text from the OS X clipboard
 noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 
@@ -47,55 +47,64 @@ noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 set rtp+=/usr/share/vim/vim73/bundle/powerline/bindings/vim
 
 " Auto complete tab stuff
-function! Smart_TabComplete()
-  let line = getline('.')                         " current line
-
-  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
-                                                  " line to one character right
-                                                  " of the cursor
-  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-  if (strlen(substr)==0)                          " nothing to match on empty string
-    return "\<tab>"
-  endif
-  let has_period = match(substr, '\.') != -1      " position of period, if any
-  let has_slash = match(substr, '\/') != -1       " position of slash, if any
-  if (!has_period && !has_slash)
-    return "\<C-X>\<C-P>"                         " existing text matching
-  elseif ( has_slash )
-    return "\<C-X>\<C-F>"                         " file matching
-  else
-    return "\<C-X>\<C-O>"                         " plugin matching
-  endif
-endfunction
-
-noremap <tab> <c-r>=Smart_TabComplete()<CR>
+" function! Smart_TabComplete()
+"   let line = getline('.')                         " current line
+" 
+"   let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+"                                                   " line to one character right
+"                                                   " of the cursor
+"   let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+"   if (strlen(substr)==0)                          " nothing to match on empty string
+"     return "\<tab>"
+"   endif
+"   let has_period = match(substr, '\.') != -1      " position of period, if any
+"   let has_slash = match(substr, '\/') != -1       " position of slash, if any
+"   if (!has_period && !has_slash)
+"     return "\<C-X>\<C-P>"                         " existing text matching
+"   elseif ( has_slash )
+"     return "\<C-X>\<C-F>"                         " file matching
+"   else
+"     return "\<C-X>\<C-O>"                         " plugin matching
+"   endif
+" endfunction
+" 
+" noremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 " numbers stuff
 noremap <F3> :NumbersToggle<CR>
 
 set laststatus=2
 
-" Vundle Stuffs
-set nocompatible               " be iMproved
-filetype off                   " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
-Bundle 'scrooloose/syntastic'
-Bundle 'fatih/vim-go'
-Bundle 'Blackrush/vim-gocode'
-Bundle 'scrooloose/nerdtree'
-Bundle 'justinmk/vim-syntax-extra'
-Bundle 'octol/vim-cpp-enhanced-highlight'
-Bundle 'ervandew/supertab'
-Bundle 'garyharan/vim-proto'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'fatih/vim-go'
+Plugin 'Blackrush/vim-gocode'
+Plugin 'scrooloose/nerdtree'
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'ervandew/supertab'
+Plugin 'garyharan/vim-proto'
+Plugin 'mileszs/ack.vim'
 
-filetype plugin indent on     " required!
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
+Plugin 'tabnine/YouCompleteMe'
+
+"Plugin 'sebdah/vim-delve'
+
+" Plugin 'vim-latex/vim-latex'
+" Plugin 'xuhdev/vim-latex-live-preview'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " Go! Stuffs
 filetype off
@@ -109,6 +118,9 @@ autocmd FileType go compiler go
 " Auto complete all day
 set omnifunc=syntaxcomplete#Complete
 syntax on
+
+" Auto complte accpetenace with ctrl-y
+let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
 
 "Window movement
 nmap <C-j> <C-W>j
@@ -134,23 +146,56 @@ let g:go_fmt_experimental = 1
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-set rnu
+let g:Tex_MultipleCompileFormats = 'pdf'
 
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+set rnu
+set nu
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+
+"python3 from powerline.vim import setup as powerline_setup
+"python3 powerline_setup()
+"python3 del powerline_setup
 
 map <C-n> :NERDTreeToggle<CR>
 
-let g:go_fmt_command = "goimports"
+"let g:go_fmt_command = "goimports"
+let g:go_imports_autosave = 1
 autocmd BufNewFile,BufReadPost *.h,*.cxx,*.cpp,*.cc set filetype=cpp
+
+set ignorecase
+set smartcase
+
+set rtp+=/usr/local/opt/fzf
+
+"set re=1
+set re=2
+set ttyfast
+set lazyredraw
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 " set foldmethod=syntax
 
-" speed up syntax highlighting
-set nocursorcolumn
-set nocursorline
+" go pls stuff
+"let g:go_def_mode='gopls'
+"let g:go_info_mode='gopls'
+"
+let loaded_spellfile_plugin = 1
 
-syntax sync minlines=256
-set synmaxcol=300
-set re=1
+"underline spell errors in terminals
+hi SpellBad cterm=underline
+
+let g:go_debug_address = '127.0.0.1:8182'
+let g:go_debug_windows = {
+        \ 'vars':       'leftabove 100vnew',
+        \ 'stack':      'leftabove 20new',
+        \ 'goroutines': 'botright 30new',
+        \ 'out':        'botright 5new',
+\ }
+let g:go_debug_preserve_layout = 1
